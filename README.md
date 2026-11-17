@@ -84,6 +84,8 @@ saves.
 - `make_profile_launchers.py`, `profile_launcher.py`, and
   `restore_profile_configs.py` generate local launchers, apply graphics-only
   settings, and restore the saved configuration.
+- `tools/package_profile_release.py` builds and checks the game-free release ZIP
+  from an explicit allowlist.
 - `docs/graphics-mod-research.md` records compatibility and licensing findings.
 - `CHANGELOG.md`, `LICENSE`, and `NOTICE` record project changes and attribution.
 

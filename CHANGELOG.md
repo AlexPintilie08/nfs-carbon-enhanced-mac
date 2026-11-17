@@ -6,6 +6,7 @@
 - Added a launcher generator that targets a locally built app and writes under
   the user's Applications folder by default.
 - Added one-time configuration backups and a restore tool; saves are not changed.
+- Added an allowlist-based release packager with archive integrity checks and SHA-256 output.
 - Added a mod compatibility and licensing review. No third-party graphics
   payloads or game files are included.
 - Documented the upstream port, attribution, installation flow, and validation
