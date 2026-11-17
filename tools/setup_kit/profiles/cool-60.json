@@ -1,0 +1,23 @@
+{
+  "id": "cool-60",
+  "name": "COOL 60",
+  "target_display_px": [2560, 1664],
+  "game_resolution_px": [1280, 832],
+  "mod_settings": {
+    "core.nfsc/hd_reflections": 1,
+    "core.nfsc/render_scale": 2,
+    "core.nfsc/smooth_sim": 1,
+    "core.nfsc/upscaling": 1,
+    "host.display/frame_limit": 2,
+    "host.display/hd_textures": 1,
+    "host.display/performance_overlay": 0,
+    "host.display/texture_filtering": 3,
+    "host.display/window": 2
+  },
+  "registry_values": {
+    "g_RacingResolution": {
+      "type": 4,
+      "data": 2231370560
+    }
+  }
+}

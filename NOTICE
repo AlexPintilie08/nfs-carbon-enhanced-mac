@@ -5,6 +5,15 @@ credits are preserved. This project is not affiliated with or endorsed by
 Electronic Arts. "Need for Speed" and "Carbon" are trademarks of Electronic
 Arts Inc.
 
+NFS Carbon Enhanced Mac is a downstream project based on
+github.com/vasist15-source/nfs-carbon-mac. The source port's existing
+copyright notices, LICENSE, NOTICE and third-party dependency licences are
+preserved. Original contributions in this downstream change set are the
+graphics profile JSON files, local profile launcher and restore tools, and
+their documentation (Copyright (c) 2026 Alex Pintilie; licensed under the
+root MIT License). No source or assets from the researched visual mods are
+included. No game files or compiled game application are distributed.
+
 Original game files are not distributed in this repository. The app is built
 locally from the player's own copy of the game; the game's executable, data,
 artwork, audio, tracks and cinematics are still required from that copy and

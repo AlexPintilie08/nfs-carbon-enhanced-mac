@@ -1,130 +1,93 @@
-# Need for Speed: Carbon — Native for Apple Silicon Macs
+# NFS Carbon Enhanced for Apple Silicon
 
+Community graphics profiles and local launcher tools for the native macOS port
+of *Need for Speed: Carbon* (2006). This downstream project is based on
+[vasist15-source/nfs-carbon-mac](https://github.com/vasist15-source/nfs-carbon-mac);
+the original port, recomp-kit, and all third-party attributions remain credited
+under their existing licences. This project is not affiliated with Electronic
+Arts.
 
-<img width="1710" height="1107" alt="Screenshot 2026-10-10 at 5 58 31 PM" src="https://github.com/user-attachments/assets/fa1c42ff-4a63-4c6f-98d3-0a1411428b9c" />
+The repository contains source code, profile configuration, and documentation.
+It does **not** contain the game, `NFSC.exe`, game libraries or assets, a
+compiled game application, saved games, or files from private security audits.
+No crack, DRM bypass, or third-party graphics payload is provided.
 
+## Install
 
-A native macOS build of the 2006 PC game, made by **static recompilation**: the game's own x86 code is
-translated to C ahead of time and compiled for Apple Silicon, with a Metal renderer, native audio and
-native controller support. There is no emulator, no Wine and no CrossOver.
+1. Obtain a legally licensed PC copy of *Need for Speed: Carbon* that meets the
+   [upstream port's current requirements](https://github.com/vasist15-source/nfs-carbon-mac#what-you-need).
+   The required game files must come from your own installation. If the
+   compatibility checks fail, stop and resolve that through a legitimate source;
+   this project does not modify or replace the game's executable.
+2. Build the native app locally using the
+   [upstream Setup app](https://github.com/vasist15-source/nfs-carbon-mac/releases/latest),
+   or run the upstream `setup.sh` from a source checkout with your own game path.
+   The Setup app is not included in this project; the upstream project explains
+   its build process and requirements.
+3. Download the profile tools from this repository's
+   [Releases](https://github.com/AlexPintilie08/nfs-carbon-enhanced-mac/releases),
+   extract them, and run this from the extracted folder:
 
-> **You need your own copy of the game.** This repository contains **no game code, executables,
-> artwork, sound, movies or tracks**. The build takes the files from **your** installation and makes
-> the app on **your** Mac. Nothing it builds is meant to be shared.
+   ```sh
+   python3 tools/setup_kit/make_profile_launchers.py \
+     --app "/Applications/Need for Speed Carbon.app"
+   ```
 
-This project is not affiliated with or endorsed by Electronic Arts. *Need for Speed* and *Carbon* are
-trademarks of Electronic Arts Inc.
+   If the port app is elsewhere, pass its path to `--app`. The tool checks the
+   app's files and code signature, then creates three profile launchers in
+   `~/Applications/NFS Carbon Profiles`. It does not start the game. No admin
+   privileges or global macOS security changes are required.
+4. Open **COOL 60**, **BALANCED 60**, or **Enhanced 60** when you are ready to
+   play. A launcher saves the original graphics configuration once, applies
+   its profile, and then opens the selected local port app. All profiles use the
+   same save directory and preserve controller mappings and gameplay settings.
 
-**Status: Fully playable.** Career, races, the garage and the menus work at 60 fps with sound.
+The profiles target a 2560×1664 display such as the 13-inch MacBook Air panel.
+For another display, choose a supported resolution in the game's Video options.
+The 60 FPS value is a cap target, not a performance guarantee; no sustained
+frame-time or temperature claims are made without measurements.
 
-## Play it on your Mac
+## Profiles
 
-1. Have your own installed copy of the PC game (version 1.4, see below) on your Mac.
-2. Download the **Setup app** (`NFS-Carbon-Setup` disk image) from the
-   [latest release](https://github.com/vasist15-source/nfs-carbon-mac/releases/latest), open it, and
-   choose or drop your game folder. The app is not notarized: the first time, open it, click Done, then
-   System Settings → Privacy & Security → **Open Anyway**.
-3. Click **Build**. The first build takes a while (a one-time analysis of NFSC.exe); then the game is in
-   your Applications folder.
+| Profile | Game resolution | Display target | Frame cap | World filtering | MetalFX |
+| --- | ---: | ---: | ---: | ---: | --- |
+| COOL 60 | 1280×832 | 2560×1664 | 60 FPS | 8× anisotropic | Upscale to target |
+| BALANCED 60 | 1920×1248 | 2560×1664 | 60 FPS | 8× anisotropic | Upscale to target |
+| Enhanced 60 | 2560×1664 | 2560×1664 | 60 FPS | 16× anisotropic | Enabled; no upscale at native resolution |
 
-The Setup app holds no game files: it builds the game on your Mac from your copy. You can also build in
-Terminal with `./setup.sh "/path/to/Need for Speed - Carbon"` (add `--button-icons` for the controller
-icons).
+All profiles select fullscreen, keep the port's even-physics-step setting and
+native HD reflections, and turn the performance overlay off. HD texture loading
+is enabled, but this repository includes no HD road, building, or car textures.
+The installed port may separately contain its native HD UI assets. Read
+[graphics-profiles.md](docs/graphics-profiles.md) for details and first-launch
+checks.
 
-## What works
+## Restore and uninstall
 
-- Native Apple Silicon app with a sharp icon made from the game's own logo; saves and settings in
-  `~/Library/Application Support/NFS Carbon` like any Mac game.
-- **Game Mode**: macOS gives the game priority on the CPU and GPU and lowers controller and
-  AirPods latency when it runs full screen.
-- **Widescreen** (a port of ThirteenAG's widescreen fix): any resolution and aspect ratio in
-  Options → Video, from 640×480 to 4K, including the screen's native sizes. The field of view is
-  Hor+ and the HUD is moved out to the edges.
-- **Settings page (F10**, fn+F10 on a Mac keyboard), on a native macOS Liquid Glass panel (frosted
-  glass before macOS 26), works with the mouse, keyboard or controller:
-  - Graphics: full screen, borderless or windowed; render resolution (the game's own
-    resolution by default, 1.5x for smoother edges, or the full screen); sharper upscaling to the
-    screen with Apple's MetalFX (on by default); frame limit (original,
-    40, 60, or an experimental 120 FPS); world texture filtering up to 16x anisotropic; even
-    physics steps (smooth motion at 60 FPS, on by default); the game's sound mixer on its own CPU
-    core (on by default); a performance overlay with frame times on a Liquid Glass panel (also F11).
-    The game pauses while the page is open.
-  - Mods: skip intro movies, hide the closed online modes, how much you see to the sides, no
-    rubberbanding (opponents don't catch up), and cheats (off by default: infinite nitrous and
-    speedbreaker, engine power, opponent engine power), and HD Reflections with one switch for all of
-    its options.
-  - Controller: console layout on/off, looking around with the right stick on/off, rumble
-    strength, and which button names to show (automatic, Xbox, PlayStation, Switch Pro).
-- **Controllers** (a port of NFS-XtendedInput): the console layout (RT gas, LT brake, A handbrake,
-  B nitrous, X speedbreaker, Y crew, RB/LB shift up/down, RS click look back, d-pad down camera),
-  triggers as analog pedals, rumble from the game's own force feedback (crashes and road surfaces),
-  console-style menu prompts while a pad is in use, and the controller's own button names
-  (Xbox, PlayStation, Switch Pro). Remapping in Options → Controls still works.
-- **Look around with the right stick** while driving, like modern racing games: push it the way you
-  want to look (down looks behind) and the camera glides back behind the car when you let go.
-- **HD menus, HUD and fonts** (optional, a checkbox in the Setup app): NFS Carbon Remastered UI by
-  BadassBaboon, downloaded from nfsmods.xyz and installed into the app's own copy of the game, with
-  the fonts and cursor kept at their original size as Aero_'s HD Content Support does on Windows.
-  Menus, HUD, fonts, the world map, minimap, track maps and the neon barrier arrows on the tracks
-  are HD. Adds about 300 MB to the app.
-- **HD reflections** (a port of Aero_'s NFSC HD Reflections, on by default): car paint, road and
-  rear-view mirror reflections at the game's resolution instead of 256×256 / 320×240, with more
-  detail and the sky in them; cars and their coloured lights in the road's reflection; Xbox 360 or
-  PS3 reflection contrast; brighter traffic signs. The mod's other options are on F10 → Mods →
-  Visual (mirror smoke, real reflections in menus, chrome, flare size and rotation, blur,
-  brightness, colour grading, pause blur), and one switch turns all of it off.
+To restore the graphics settings captured before the first profile was applied,
+run this from the extracted tools folder:
 
-
-## What you need
-
-- An Apple Silicon Mac and the Xcode Command Line Tools (`xcode-select --install`).
-- Python 3.
-- Your installed PC game, **version 1.4**, with an unwrapped `NFSC.exe`
-  (SHA-256 `baaaaec33873d4ba7e4dbae6a5212049ffdcf9679a35d865d7625b4189952fd3`; the build checks it)
-  and the `msvcr71.dll` / `msvcp71.dll` from the game folder.
-
-## Build it by hand (for development)
-
-```
-GAME="/path/to/Need for Speed - Carbon"         # your game folder, the one with NFSC.exe
-cd nfsc-mac
-python3 -m venv .venv && .venv/bin/pip install -r kit/requirements-dev.txt
-.venv/bin/python tools/setup.py --install "$GAME" --link-only
-.venv/bin/python tools/rebase_pe.py "$GAME"
-.venv/bin/python tools/fetch_tools.py            # Ghidra + Java, once; prints two paths
-.venv/bin/python tools/analyze.py --ghidra-home <Ghidra path> --java-home <Java path>
-.venv/bin/python tools/build.py --regenerate
-.venv/bin/python tools/setup_kit/package.py --game "$GAME" --install
+```sh
+python3 tools/setup_kit/restore_profile_configs.py
 ```
 
-The last step puts **Need for Speed Carbon** in /Applications. The app holds your copy of the game, so
-don't share it. Logs from each launch are in `~/Library/Application Support/NFS Carbon/Logs`.
+The restore tool touches only `mod-settings.json` and `registry.json`. It leaves
+saves, logs, and the backup snapshot in place. To remove the profiles, move the
+three generated launchers in `~/Applications/NFS Carbon Profiles` to the Trash.
+The native port remains installed. For game removal, follow the upstream port's
+instructions and keep its Application Support folder if you want to preserve
+saves.
 
-## How it works
+## Project contents and attribution
 
-The translator, runtime, Direct3D 9 → Metal renderer, audio and input hosts are
-[recomp-kit](https://github.com/veritr1x/recomp-kit) by veritr1x, included in `kit/` with this port's
-changes (history in `docs/kit-patches/` and git). This repository adds what makes Carbon run:
+- `tools/setup_kit/profiles/` contains the three independent JSON presets.
+- `make_profile_launchers.py`, `profile_launcher.py`, and
+  `restore_profile_configs.py` generate local launchers, apply graphics-only
+  settings, and restore the saved configuration.
+- `docs/graphics-mod-research.md` records compatibility and licensing findings.
+- `CHANGELOG.md`, `LICENSE`, and `NOTICE` record project changes and attribution.
 
-- `game.toml`: the game's identity, extra entry points, and translate-time fixes (operand redirects,
-  instruction patches) that stand in for the binary patches PC mods make.
-- `mods/core/nfsc/`: the built-in mod (widescreen, resolution list, controller layout, prompts,
-  rumble and right-stick camera, HD reflections, cheats).
-- `tools/`: Ghidra analysis, DLL rebasing, build wrappers, and `setup_kit/` (packaging, launcher, icon).
-- `CLAUDE.md`: the bring-up notes — every problem found, its evidence and its fix.
-
-The approach and much of the setup follow the
-[Need for Speed: Most Wanted Mac port](https://github.com/elforeign/nfs-most-wanted-mac).
-
-## Credits
-
-- **recomp-kit** — veritr1x
-- **Need for Speed: Most Wanted Mac port** — elforeign, whose setup, mod and controller work this port
-  started from
-- **NFSCarbon.WidescreenFix** (WidescreenFixesPack) — ThirteenAG, MIT; reimplemented in `mods/core/nfsc`
-- **NFSC HD Reflections** — Aero_, GPL-3; its source was read for addresses, reimplemented in
-  `mods/core/nfsc/hd_refl.h`
-- **NFS-XtendedInput** — xan1242 (Lovro Pleše) and Berkay Yiğit, MIT; button icons by Aero_ (not
-  included; see NOTICE)
-
-See [NOTICE](NOTICE) for the licences.
+The source port is licensed under the root MIT license; `kit/` retains its own
+MIT license and notices. Third-party dependencies keep their upstream licenses.
+See [NOTICE](NOTICE) and [kit/NOTICE](kit/NOTICE). The original game and any
+third-party mod assets retain their owners' rights.

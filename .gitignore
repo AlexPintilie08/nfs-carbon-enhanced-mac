@@ -4,6 +4,9 @@ rebased/
 analysis/
 build/
 dist/
+/NFSC-clean-input/
+/security-audit/
+/NFSC.zip
 
 # Local tooling and run output
 .venv/
@@ -13,3 +16,10 @@ run-summary.txt
 build-log.txt
 *.log
 first-launch/
+.DS_Store
+__pycache__/
+*.py[cod]
+.env
+.env.*
+*.pem
+*.key
